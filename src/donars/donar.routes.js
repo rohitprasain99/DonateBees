@@ -1,15 +1,12 @@
 import express from 'express'
 import { getDonars, postDonar, putDonar, patchDonar, deleteDonar } from './donar.controller.js'
 import roleGuard from '../guards/role.guard.js'
+import authMiddleware from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
-// //router level middleware
-// const donarMiddleware = (req, res, next) => {
-//     console.log('Time: ', Date.now())
-//     next()
-// }
-// router.use(donarMiddleware)
+//router level middleware
+router.use(authMiddleware)
 
 //routes
 router.get('/', getDonars)
