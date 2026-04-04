@@ -19,4 +19,4 @@ const responseInterceptor = (req, res, next) => {
 
 }
 
-module.exports = responseInterceptor;
+export default responseInterceptor;

@@ -1,15 +1,18 @@
-const express = require('express')
-const path = require('path')
+import express from 'express'
+import path from 'path'
+import 'dotenv/config'
+
 const PORT = 3000
 
-const donarRoutes = require("./src/donars/donar.routes.js")
-const responseInterceptor = require('./src/core/response.interceptor.js')
+import donarRoutes from "./src/donars/donar.routes.js"
+import responseInterceptor from './src/core/response.interceptor.js'
+
 const app = express()
 
 //built-in middlewares
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use('/static', express.static('public'))
+app.use(express.json())
 
-//custom middleware
 // custom middlewares
 app.use(responseInterceptor)
 

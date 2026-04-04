@@ -58,4 +58,4 @@ const deleteDonar = async (req, res) => {
 }
 
 
-module.exports = { getDonars, postDonar, putDonar, patchDonar, deleteDonar }
+export { getDonars, postDonar, putDonar, patchDonar, deleteDonar }
