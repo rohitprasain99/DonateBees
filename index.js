@@ -1,28 +1,30 @@
-import express from 'express'
-import path from 'path'
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import app from './app.js'
+import connectDB from './src/config/dbconfig.js'
 
-const PORT = 3000
-
-import donarRoutes from "./src/donars/donar.routes.js"
-import responseInterceptor from './src/core/response.interceptor.js'
-
-const app = express()
-
-//built-in middlewares
-app.use('/static', express.static('public'))
-app.use(express.json())
-
-// custom middlewares
-app.use(responseInterceptor)
-
-//ROOT APP
-app.get('/api/v1', (req, res) => {
-    res.send("welcome to donate bees")
+dotenv.config({
+    path: './.env'
 })
 
-app.use('/api/donar', donarRoutes)
+async function startServer() {
+    //connect db
+    try {
+        await connectDB()
 
-app.listen(PORT, () => {
-    console.log(`donate bees running in ${PORT}\n. \n. \n. \n.`)
-})
+        app.on("error", (error) => {    // to check if there are any errors 
+            console.log("ERROR", error);
+            throw error;
+        })
+
+        app.listen(process.env.PORT || 8000, () => {
+            console.log('app running in port ', process.env.PORT)
+        })
+    } catch (err) {
+        console.error('could not start server', err)
+    }
+
+    //listen to port
+
+}
+
+startServer()
