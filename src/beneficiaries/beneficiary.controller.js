@@ -6,10 +6,10 @@ const getBeneficiaries = async (req, res) => {
             .find()
             .select(['_id', 'beneficiaryName', "description", 'billAmount', 'category'])
 
-        res.status(200).json({ data: dbres, meta: { count: dbres.length } }, 'beneficiarys sent successfullyy')
+        return res.status(200).json({ data: dbres, meta: { count: dbres.length } }, 'beneficiarys sent successfullyy')
     } catch (e) {
         console.error(e.message)
-        res.status(500).json({ devMessage: e.message }, 'could not get beneficiary')
+        return res.status(500).json({ devMessage: e.message }, 'could not get beneficiary')
     }
 }
 
@@ -18,10 +18,10 @@ const postBeneficiary = async (req, res, next) => {
         const data = req.body
         //post in db"role":"ADMIN"
         const dbres = await Beneficiary.create(data)
-        res.status(201).json({ data: { id: dbres._id } }, 'beneficiarys added successfully')
+        return res.status(201).json({ data: { id: dbres._id } }, 'beneficiarys added successfully')
     } catch (e) {
         console.error(e.message)
-        res.status(500).json({ devMessage: e.message }, 'could not add beneficiary')
+        return res.status(500).json({ devMessage: e.message }, 'could not add beneficiary')
     } finally {
         next()
     }
@@ -35,10 +35,10 @@ const putBeneficiary = async (req, res) => {
         //update in db
         const dbres = await Beneficiary
             .findByIdAndUpdate(beneficiaryId, data).select('_id')
-        res.status(200).json({ data: dbres }, 'beneficiary updated successfully')
+        return res.status(200).json({ data: dbres }, 'beneficiary updated successfully')
     } catch (e) {
         console.error(e.message)
-        res.status(500).json({ devMessage: e.message }, 'could not update beneficiary')
+        return res.status(500).json({ devMessage: e.message }, 'could not update beneficiary')
     }
 }
 
@@ -51,10 +51,10 @@ const patchBeneficiary = async (req, res) => {
         const dbres = await Beneficiary
             .findByIdAndUpdate(beneficiaryId, data).select('_id')
 
-        res.status(200).json({ data: dbres }, 'beneficiary updated successfully')
+        return res.status(200).json({ data: dbres }, 'beneficiary updated successfully')
     } catch (e) {
         console.error(e.message)
-        res.status(500).json({ devMessage: e.message }, 'could not update beneficiary')
+        return res.status(500).json({ devMessage: e.message }, 'could not update beneficiary')
     }
 }
 
@@ -63,10 +63,10 @@ const deleteBeneficiary = async (req, res) => {
         const beneficiaryId = req.params.id
         //delete beneficiary in db
         const dbres = await Beneficiary.findOneAndDelete({ _id: beneficiaryId }).select('_id')
-        res.status(200).json({ data: dbres }, 'beneficiary deleted successfully')
+        return res.status(200).json({ data: dbres }, 'beneficiary deleted successfully')
     } catch (e) {
         console.error(e.message)
-        res.status(500).json({ devMessage: e.message }, 'could not delete beneficiary')
+        return res.status(500).json({ devMessage: e.message }, 'could not delete beneficiary')
     }
 }
 
