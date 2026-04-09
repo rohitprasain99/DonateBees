@@ -1,6 +1,9 @@
-// import { Schema } from "mongoose";
-
 import mongoose, { Schema } from "mongoose"
+
+const ROLES = {
+    ADMIN: 'ADMIN',
+    DONAR: 'DONAR'
+}
 
 const userSchema = new Schema({
     username: {
@@ -16,6 +19,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlenth: 5,
+    },
+    role: {
+        type: String,
+        default: ROLES.ADMIN
     }
 }, {
     timestamps: true
